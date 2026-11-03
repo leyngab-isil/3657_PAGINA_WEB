@@ -16,7 +16,11 @@ class Database
     {
         try {
 
+            // conexión a mysql
             $dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
+
+            // conexión a sql server
+            // $dsn = "sqlsrv:Server={$this->host};Database={$this->database}";
 
             $connection = new PDO(
                 $dsn,
