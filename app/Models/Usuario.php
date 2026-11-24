@@ -138,4 +138,13 @@ class Usuario
             ':id' => $id
         ]);
     }
+
+    public function findByEmail(string $email): ?array
+    {
+        $stmt=$this->db->prepare(
+            'SELECT u.id_usuario, u.nombres, u.email, u.password_hash, r.nombre role FROM usuarios u 
+            INNER JOIN roles r on u.id_rol = r.id_rol WHERE u.email = :email AND u.estado = 1 LIMIT 1');
+        $stmt->execute([':email'=>$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
 }

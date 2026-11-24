@@ -18,8 +18,34 @@ class ProductoController
 
     public function index(): void
     {
+        $search = trim($_GET['search'] ?? '');
+
+        $page = filter_input(
+            INPUT_GET,
+            'page',
+            FILTER_VALIDATE_INT
+        );
+
+        $limit = filter_input(
+            INPUT_GET,
+            'limit',
+            FILTER_VALIDATE_INT
+        );
+
+        $precio_min = filter_input(
+            INPUT_GET,
+            'precio_min',
+            FILTER_VALIDATE_INT
+        );
+
         Response::success(
-            $this->producto->obtenerTodos(),
+            // $this->producto->obtenerTodos(),
+            $this->producto->obtenerPaginados(
+                $search,
+                $page,
+                $limit,
+                $precio_min
+            ),
             'Productos obtenidos correctamente'
         );
     }

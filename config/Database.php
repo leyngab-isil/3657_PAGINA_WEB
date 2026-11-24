@@ -48,7 +48,7 @@ class Database
         } catch (PDOException $e) {
 
             throw new PDOException(
-                'Error al conectar con la base de datos.'
+                'Error al conectar con la base de datos.' . $e
             );
         }
     }

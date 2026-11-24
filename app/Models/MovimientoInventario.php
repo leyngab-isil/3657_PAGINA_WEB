@@ -97,9 +97,7 @@ class MovimientoInventario
     /**
      * Obtener movimientos de un insumo.
      */
-    public function obtenerPorInsumo(
-        int $idInsumo
-    ): array {
+    public function obtenerPorInsumo(int $idInsumo): array {
 
         $sql = "
             SELECT

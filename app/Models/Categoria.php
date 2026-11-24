@@ -77,10 +77,7 @@ class Categoria
         ]);
     }
 
-    public function actualizar(
-        int $id,
-        array $data
-    ): bool {
+    public function actualizar(int $id, array $data) : bool {
 
         $sql = "
             UPDATE categorias

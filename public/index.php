@@ -1,16 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Middleware\CorsMiddleware;
 use Config\Database;
 use Core\Router;
 
-// ==============================
-// CORS
-// ==============================
+define('BASE_URL', '/3657_PAGINA_WEB/public');
 
-CorsMiddleware::handle();
+// =====================================
+// SESIÓN
+// =====================================
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 // =====================================
 // CONEXIÓN
@@ -31,6 +38,7 @@ $router = new Router();
 // CARGAR RUTAS
 // =====================================
 
+require_once __DIR__ . '/../routes/web.php';
 require_once __DIR__ . '/../routes/api.php';
 
 
@@ -58,7 +66,6 @@ $uri = parse_url(
 $basePath = '/3657_PAGINA_WEB/public';
 
 if (str_starts_with($uri, $basePath)) {
-
     $uri = substr(
         $uri,
         strlen($basePath)
@@ -66,9 +73,25 @@ if (str_starts_with($uri, $basePath)) {
 }
 
 
-// Si queda vacío
-if ($uri === '') {
+// =====================================
+// NORMALIZAR URI
+// =====================================
+
+if ($uri === '' || $uri === false) {
     $uri = '/';
+}
+
+if ($uri !== '/') {
+    $uri = rtrim($uri, '/');
+}
+
+
+// =====================================
+// CORS SOLO PARA API
+// =====================================
+
+if (str_starts_with($uri, '/api')) {
+    CorsMiddleware::handle();
 }
 
 

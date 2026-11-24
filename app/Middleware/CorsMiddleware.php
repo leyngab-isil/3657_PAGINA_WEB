@@ -20,9 +20,9 @@ class CorsMiddleware
         );
 
         // Tipo de contenido
-        header(
-            'Content-Type: application/json; charset=UTF-8'
-        );
+        // header(
+        //     'Content-Type: application/json; charset=UTF-8'
+        // );
 
         // Responder a las solicitudes preflight
         if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
